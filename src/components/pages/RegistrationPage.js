@@ -6,24 +6,24 @@ import {Button } from 'semantic-ui-react';
 
 class RegistrationPage extends React.Component{
 
-
+  constructor(props) {
+    super(props);
+      this.state = {}
+      this.submit = this.submit.bind(this);
+  }
 
 //Gets the data and sumbits it for a post request
-submit = data => {
+submit(data) {
 
-  axios.post('http://localhost:3333/register',{
-    name:data.username,
-    email:data.email,
-    password:data.password,
-    admin:data.admin
+  axios.post('http://localhost:8081/api/user/create',{
+    username:data.username,
+    name:data.name,
+    password:data.password
   })
-  .then(function(response){
-
-
-    //This is responsible for the page navigation.
-    // response.data.success
-    // ?  (document.getElementById('status').innerHTML = "Registration Successfull! You are being redirected to login in 5 seconds.",setTimeout(() => {window.location.replace('/login')},5000))
-    // : document.getElementById('status').innerHTML = response.data.message
+  .then((response)=>{
+    
+    window.alert(response.statusText);
+    this.props.history.push('/login');
   });
 };
 
